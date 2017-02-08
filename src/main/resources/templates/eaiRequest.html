@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>EAI Inquiry</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Enter the EAI No.</h1>
+    <form action="#" th:action="@{/eaiRequest}" th:object="${eaiRequest}" method="post">
+    	<p>EAI#: <input type="text" th:field="*{EAI}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>
