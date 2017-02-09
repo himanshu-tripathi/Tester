@@ -1,8 +1,19 @@
 package com.Himanshu;
 
+import org.json.simple.JSONObject;
+
 public class eaiRequest {
 
 	private String EAI;
+	private JSONObject result;
+	public JSONObject getResult() {
+		return result;
+	}
+
+	public void setResult(JSONObject result) {
+		this.result = result;
+	}
+
 	public eaiRequest(){
 		
 	}
