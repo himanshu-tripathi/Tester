@@ -5,16 +5,100 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<style type="text/css">
 
+
+.string {
+	color: green;
+}
+
+.number {
+	color: black;
+}
+
+.boolean {
+	color: magenta;
+}
+
+.null {
+	color: red;
+}
+
+.key {
+	color: blue;
+}
+</style>
+<style>
+#link {
+    width: 28%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 43.5%;
+}
+
+#link:hover {
+    background-color: #45a049;
+}
+{
+background: rgb(252, 246, 228);
+}
+</style>
 </head>
 <body>
-<pre><code id=account></code></pre>
-<pre><code id=planets></code></pre>
 
-	<h3>Result</h3>
-	<p th:text="'Destination: ' + ${eaiRequest.EAI}" />
-	<p id="opText" th:text="${eaiRequest.result}" />
-	<pre id="test"></pre>
-	<a href="/eaiRequest">Inquire another destination</a>
+	<h3 style="font-size: 1.8em; text-align: center; font-style: italic; background: #acbdef; padding: 0.8em; margin: -20px">Result</h3>
+	<p style="font-size: 1.2em;
+    text-align: center;
+    font-style: italic;
+    background: #3ff57f;
+    margin-top: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    padding: 0.8em;" 
+    th:text="'Destination: ' + ${eaiRequest.EAI}" />
+    
+	<div id="opText" th:text="${eaiRequest.result}" hidden="true"></div>
+	
+	<pre style="background: cornsilk;" id="json"></pre>
+	
+<script type="text/javascript">
+
+	var temp = document.getElementById("opText").innerHTML;
+	/* document.getElementById("json").innerHTML=JSON.stringify(JSON.parse(temp), null, 2); */
+	
+	function output(inp) {
+    document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+}
+
+function syntaxHighlight(json) {
+   
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+var obj = JSON.parse(temp);
+var str = JSON.stringify(obj, undefined, 4);
+
+output(syntaxHighlight(str));
+</script>
+<a id="link" href="/eaiRequest">Inquire another destination</a>
 </body>
 </html>
